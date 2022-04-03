@@ -30,13 +30,17 @@ body {
 }
 
 .calculator-display {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   width: 100%;
   height: 100px;
   background-color: white;
-  text-align: right;
   font-size: 3rem;
   border-radius: 10px;
-  padding: 25px 15px;
+  padding-right: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .calculator-button {
@@ -57,14 +61,19 @@ body {
   font-size: 2.5rem;
   flex: 1 0 0;
   background-color: white;
+  cursor: pointer;
 }
 
-.button-row-last {
+button:active {
+  background-color: #a4a4a4;
+}
+
+.last {
   display: flex;
   flex: 1 0 0;
 }
 
-.button-row-last > .number,
+.last > .number,
 .decimal,
 .calculate {
   border: 1px solid coral;
@@ -73,23 +82,33 @@ body {
   background-color: white;
 }
 
-.button-row-last > .decimal,
+.last > .decimal,
 .calculate {
   flex: 1 0 0;
 }
 
-.border-top-left {
+#border-top-left {
   border-top-left-radius: 10px;
+  font-size: 0.5rem;
 }
 
-.border-top-right {
+#border-top-left::after {
+  content: "AC";
+  font-size: 1.8rem;
+}
+
+#border-top-right {
   border-top-right-radius: 10px;
 }
 
-.border-bottom-left {
+#border-bottom-left {
   border-bottom-left-radius: 10px;
 }
 
-.border-bottom-right {
+#border-bottom-right {
   border-bottom-right-radius: 10px;
+}
+
+#border-bottom-left:active {
+  background-color: #a4a4a4;
 }
