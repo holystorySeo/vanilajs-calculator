@@ -112,3 +112,7 @@ button:active {
 #border-bottom-left:active {
   background-color: #a4a4a4;
 }
+
+#block {
+  color: #bdbdbd;
+}
