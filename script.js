@@ -56,7 +56,7 @@ buttons.addEventListener("click", (e) => {
       display.textContent = buttonContent;
       previousNum = display.textContent;
       printOut();
-    } else if (previousKey !== undefined) {
+    } else if (previousKey !== "decimal" && previousKey !== undefined) {
       console.log("6");
       display.textContent = buttonContent;
       previousKey = undefined;
@@ -79,12 +79,17 @@ buttons.addEventListener("click", (e) => {
 
   if (name === "operator") {
     console.log("구분");
-    if (firstNum === undefined) {
+    if (firstNum === undefined && previousKey !== "decimal") {
       firstNum = display.textContent;
       operator = buttonContent;
       previousKey = "operator";
       console.log("3");
       printOut();
+    } else if (previousKey === "operator") {
+      console.log("18");
+      operator = buttonContent;
+      printOut();
+      return;
     } else if (previousKey === "calculate") {
       firstNum = display.textContent;
       operator = buttonContent;
@@ -102,6 +107,13 @@ buttons.addEventListener("click", (e) => {
     } else if (firstNum !== undefined && previousNum === undefined) {
       display.textContent = calculator(firstNum, operator, 0);
       console.log("11");
+      printOut();
+    } else if (previousKey === "decimal" && previousNum !== undefined) {
+      firstNum = display.textContent;
+      operator = buttonContent;
+      previousKey = "operator";
+      previousNum = undefined;
+      console.log("13");
       printOut();
     }
   }
@@ -131,12 +143,44 @@ buttons.addEventListener("click", (e) => {
       display.textContent = calculator(firstNum, operator, previousNum);
       previousKey = "calculate";
       printOut();
+    } else if (
+      previousKey === "decimal" &&
+      firstNum !== undefined &&
+      previousNum !== undefined
+    ) {
+      console.log("15");
+      display.textContent = calculator(firstNum, operator, previousNum);
+      previousKey = "calculate";
+      printOut();
     }
   }
 
   if (name === "decimal") {
     if (display.textContent === "0") {
+      console.log("12");
       display.textContent = "0.";
+      previousNum = "0";
+      previousKey = "decimal";
+      printOut();
+    } else if (previousKey === "operator" && previousNum === undefined) {
+      console.log("17");
+      printOut();
+      display.textContent = "0.";
+      previousKey = "decimal";
+      previousNum = "0";
+    } else if (previousKey === "decimal") {
+      console.log("19");
+      return;
+    } else if (previousKey === "operator") {
+      console.log("14");
+      display.textContent = display.textContent + ".";
+      previousKey = "decimal";
+      printOut();
+    } else if (previousKey === undefined) {
+      console.log("16");
+      display.textContent = display.textContent + ".";
+      previousKey = "decimal";
+      printOut();
     }
   }
 
