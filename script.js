@@ -1,28 +1,45 @@
-const displayResult = document.querySelector(".calculator-display");
+const display = document.querySelector(".calculator-display");
 const buttons = document.querySelector(".calculator-button");
-let cnt = 0; // 입력된 숫자의 length가 25이상이 되었을 때 부터 계산
-let firstNum, operator, previousNum, previousKey;
+
+// operator가 눌러지게되면 값이 할당된다.
+let firstNum;
+
+let operator;
+
+// operator가 눌러지고 그 다음 숫자를 새로 입력하게 되면 값이 1회 할당된다.
+// 숫자를 한번 입력한 상태에서 previousNum !== undefined 일 경우
+// 그 다음 순서로 입력하는 숫자는 앞 숫자의 뒤에 이어서 붙이도록 한다.
+let previousNum;
+
+// 계산을 한번 해서 그 결과를 화면에 표시한 경우 값이 할당된다.
+let previousKey;
 
 function calculator(num1, operator, num2) {
   let result = 0;
 
   if (operator === "+") {
-    result = num1 + num2;
+    result = Number(num1) + Number(num2);
   }
 
   if (operator === "−") {
-    result = num1 - num2;
+    result = Number(num1) - Number(num2);
   }
 
   if (operator === "×") {
-    result = num1 * num2;
+    result = Number(num1) * Number(num2);
   }
 
   if (operator === "÷") {
-    result = num1 / num2;
+    result = Number(num1) / Number(num2);
   }
 
   return result;
+}
+
+function printOut() {
+  console.log(
+    `firstNum=${firstNum}, operator=${operator}, displayleResult=${display.textContent}, previousNum=${previousNum}, previousKey=${previousKey}`
+  );
 }
 
 buttons.addEventListener("click", (e) => {
@@ -31,84 +48,60 @@ buttons.addEventListener("click", (e) => {
   const buttonContent = target.textContent;
 
   if (name == "number") {
-    // 숫자 입력의 경우
-    if (
-      displayResult.textContent === "0" ||
-      (operator !== undefined &&
-        firstNum !== undefined &&
-        previousNum === undefined) ||
-      previousKey !== undefined
-    ) {
+    // 화면 초기화 후 표시하는 경우
+    if (previousNum === undefined) {
       console.log("1");
-      displayResult.textContent = buttonContent;
-      previousKey = undefined;
-      if (operator !== undefined) {
-        previousNum = buttonContent;
-      }
-    } else {
-      if (displayResult.textContent.length >= 10) {
-        displayResult.style.fontSize = "2.5rem";
-      }
-
-      if (displayResult.textContent.length >= 13) {
-        displayResult.style.fontSize = "2rem";
-      }
-
-      if (displayResult.textContent.length >= 16) {
-        displayResult.style.fontSize = "1.8rem";
-      }
-
-      if (displayResult.textContent.length >= 19) {
-        displayResult.style.fontSize = "1.2rem";
-      }
-
-      if (displayResult.textContent.length >= 25) {
-        if (cnt >= 18) {
-          displayResult.style.fontSize = "1rem";
-        }
-        displayResult.textContent = displayResult.textContent.slice(1) + 0;
-        cnt += 1;
-      } else {
-        console.log("2");
-        displayResult.textContent = displayResult.textContent + buttonContent;
-      }
-
-      if (cnt === 26) {
-        displayResult.textContent = 0;
-        displayResult.style.fontSize = "3rem";
-      }
+      printOut();
+      display.textContent = buttonContent;
+      previousNum = display.textContent;
+      printOut();
+      // 숫자를 이어서 표시하는 경우
+    } else if (previousNum !== undefined) {
+      console.log("2");
+      printOut();
+      display.textContent = display.textContent + buttonContent;
+      previousNum = display.textContent;
+      printOut();
     }
   }
 
   if (name === "operator") {
-    if (firstNum === undefined) {
-      firstNum = displayResult.textContent;
-      operator = buttonContent;
-    } else {
-      displayResult.textContent = calculator(
-        Number(firstNum),
+    firstNum = display.textContent;
+    operator = buttonContent;
+    previousKey = "operator";
+    console.log("3");
+    printOut();
+  }
+
+  if (name === "calculate") {
+    if (previousKey === "calculate") {
+      display.textContent = calculator(
+        display.textContent,
         operator,
-        Number(displayResult.textContent)
+        previousNum
       );
-      firstNum = displayResult.textContent;
-      operator = buttonContent;
-      previousNum = undefined;
-      previousKey = "=";
+      firstNum = display.textContent;
+      console.log("4");
+      printOut();
+    } else if (previousKey === "operator") {
+      console.log("5");
+      previousNum = display.textContent;
+      display.textContent = calculator(firstNum, operator, previousNum);
+      previousKey = "calculate";
     }
   }
 
   if (name === "decimal") {
+    if (display.textContent === "0") {
+      display.textContent = "0.";
+    }
   }
 
-  if (name === "calculate") {
-    displayResult.textContent = calculator(
-      Number(firstNum),
-      operator,
-      Number(displayResult.textContent)
-    );
+  if (name === "clear") {
+    display.textContent = "0";
     firstNum = undefined;
     operator = undefined;
     previousNum = undefined;
-    previousKey = "=";
+    previousKey = undefined;
   }
 });
