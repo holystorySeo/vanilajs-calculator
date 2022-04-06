@@ -5,12 +5,11 @@ if (typeof window === "undefined") {
   const cwd = process.cwd();
   const { JSDOM } = require("jsdom");
   const { expect } = require("chai");
-  console.log(`경로, ${cwd}`);
 
   const prepared = fs.readFileSync(path.join(cwd, "/script.js"), {
     encoding: "utf-8"
   });
-  const html = fs.readFileSync(path.join(cwd, "/calculator.html"));
+  const html = fs.readFileSync(path.join(cwd, "/index.html"));
 
   let window;
   window = new JSDOM(html, { runScripts: "dangerously" }).window;
