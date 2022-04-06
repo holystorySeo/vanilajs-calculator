@@ -48,78 +48,78 @@ buttons.addEventListener("click", (e) => {
   const buttonContent = target.textContent;
 
   if (name == "number") {
-    console.log("구분");
+    // console.log("구분");
     // 화면 초기화 후 표시하는 경우
     if (previousNum === undefined) {
-      console.log("1");
-      printOut();
+      // console.log("1");
+      // printOut();
       display.textContent = buttonContent;
       previousNum = display.textContent;
-      printOut();
+      // printOut();
     } else if (previousKey !== "decimal" && previousKey !== undefined) {
-      console.log("6");
+      // console.log("6");
       display.textContent = buttonContent;
       previousKey = undefined;
-      printOut();
+      // printOut();
       // 숫자를 이어서 표시하는 경우
     } else if (previousNum !== undefined) {
-      console.log("2");
-      printOut();
+      // console.log("2");
+      // printOut();
       display.textContent = display.textContent + buttonContent;
       previousNum = display.textContent;
-      printOut();
+      // printOut();
     } else if (previousKey === undefined) {
-      console.log("7");
-      printOut();
+      // console.log("7");
+      // printOut();
       display.textContent = display.textContent + buttonContent;
       previousKey = "operator";
-      printOut();
+      // printOut();
     }
   }
 
   if (name === "operator") {
-    console.log("구분");
+    // console.log("구분");
     if (firstNum === undefined && previousKey !== "decimal") {
       firstNum = display.textContent;
       operator = buttonContent;
       previousKey = "operator";
-      console.log("3");
-      printOut();
+      // console.log("3");
+      // printOut();
     } else if (previousKey === "operator") {
-      console.log("18");
+      // console.log("18");
       operator = buttonContent;
-      printOut();
+      // printOut();
       return;
     } else if (previousKey === "calculate") {
       firstNum = display.textContent;
       operator = buttonContent;
       previousKey = "operator";
-      console.log("10");
-      printOut();
+      // console.log("10");
+      // printOut();
     } else if (firstNum !== undefined && previousNum !== undefined) {
       display.textContent = calculator(firstNum, operator, display.textContent);
       operator = buttonContent;
       firstNum = display.textContent;
       previousKey = "operator";
       previousNum = undefined;
-      console.log("9");
-      printOut();
+      // console.log("9");
+      // printOut();
     } else if (firstNum !== undefined && previousNum === undefined) {
       display.textContent = calculator(firstNum, operator, 0);
-      console.log("11");
-      printOut();
+      // console.log("11");
+      // printOut();
     } else if (previousKey === "decimal" && previousNum !== undefined) {
       firstNum = display.textContent;
       operator = buttonContent;
       previousKey = "operator";
       previousNum = undefined;
-      console.log("13");
-      printOut();
+      // console.log("13");
+      // printOut();
     }
   }
 
   if (name === "calculate") {
-    console.log("구분");
+    // console.log("구분");
     // 화면에 표시된 숫자를 firstNum에 할당해야 하는 경우
     if (previousKey === "calculate") {
       display.textContent = calculator(
@@ -128,64 +128,64 @@ buttons.addEventListener("click", (e) => {
         previousNum
       );
       firstNum = display.textContent;
-      console.log("4");
-      printOut();
+      // console.log("4");
+      // printOut();
       // 화면에 표시된 숫자를 previousNum에 할당해야 하는 경우
     } else if (previousKey === "operator") {
-      console.log("5");
+      // console.log("5");
       previousNum = display.textContent;
       display.textContent = calculator(firstNum, operator, previousNum);
       previousKey = "calculate";
-      printOut();
+      // printOut();
     } else if (previousKey === undefined) {
-      console.log("8");
+      // console.log("8");
       previousNum = display.textContent;
       display.textContent = calculator(firstNum, operator, previousNum);
       previousKey = "calculate";
-      printOut();
+      // printOut();
     } else if (
       previousKey === "decimal" &&
       firstNum !== undefined &&
       previousNum !== undefined
     ) {
-      console.log("15");
+      // console.log("15");
       display.textContent = calculator(firstNum, operator, previousNum);
       previousKey = "calculate";
-      printOut();
+      // printOut();
     }
   }
 
   if (name === "decimal") {
     if (display.textContent === "0") {
-      console.log("12");
+      // console.log("12");
       display.textContent = "0.";
       previousNum = "0";
       previousKey = "decimal";
-      printOut();
+      // printOut();
     } else if (previousKey === "operator" && previousNum === undefined) {
-      console.log("17");
-      printOut();
+      // console.log("17");
+      // printOut();
       display.textContent = "0.";
       previousKey = "decimal";
       previousNum = "0";
     } else if (previousKey === "decimal") {
-      console.log("19");
+      // console.log("19");
       return;
     } else if (previousKey === "operator") {
-      console.log("14");
+      // console.log("14");
       display.textContent = display.textContent + ".";
       previousKey = "decimal";
-      printOut();
+      // printOut();
     } else if (previousKey === undefined) {
-      console.log("16");
+      // console.log("16");
       display.textContent = display.textContent + ".";
       previousKey = "decimal";
-      printOut();
+      // printOut();
     }
   }
 
   if (name === "clear") {
-    console.log("구분");
+    // console.log("구분");
     display.textContent = "0";
     firstNum = undefined;
     operator = undefined;
