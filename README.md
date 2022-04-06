@@ -4,7 +4,7 @@
 
 <img src="https://user-images.githubusercontent.com/87353284/161990923-d10e6a5e-4f58-42d6-90a6-b6ca9c720e0b.png" width="50%"/>
 
-[배포 링크](https://624dadddebbc514077f65558--stately-sunshine-dd18bf.netlify.app/)
+[배포 링크](https://stately-sunshine-dd18bf.netlify.app/)
 
 ### 주요 기능
 1. 사칙연산(operator)
